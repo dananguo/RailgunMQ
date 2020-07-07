@@ -1,6 +1,5 @@
 package cn.stream2000.railgunmq.broker;
 
-import cn.stream2000.railgunmq.broker.strategy.CommonStrategy.DisconnectStrategy;
 import cn.stream2000.railgunmq.core.ConnectionMap;
 import cn.stream2000.railgunmq.core.ProducerMessage;
 import cn.stream2000.railgunmq.netty.MessageEventWrapper;
@@ -28,7 +27,6 @@ public class BrokerMessageHandler extends MessageEventWrapper<Object> {
         this.cause = cause;
         if (cause.getMessage().equals("Connection reset")) {
             //如果连接断开
-            DisconnectStrategy.deleteSubscription(ctx);
             ConnectionMap.deleteConnection(ctx.channel().id().asLongText());
         }
     }
